@@ -1,6 +1,18 @@
-import 'package:first_app/view/myApp.dart';
 import 'package:flutter/material.dart';
+import 'view/login_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Auth App',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: LoginPage(),
+    );
+  }
 }
