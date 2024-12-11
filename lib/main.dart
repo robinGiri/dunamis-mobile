@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Auth App',
+      title: 'Dunamis Learning App',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: LoginPage(),
     );

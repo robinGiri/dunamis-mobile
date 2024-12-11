@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.robin" "\0"
-            VALUE "FileDescription", "first_app" "\0"
+            VALUE "FileDescription", "dunamis" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "first_app" "\0"
+            VALUE "InternalName", "dunamis" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.robin. All rights reserved." "\0"
-            VALUE "OriginalFilename", "first_app.exe" "\0"
-            VALUE "ProductName", "first_app" "\0"
+            VALUE "OriginalFilename", "dunamis.exe" "\0"
+            VALUE "ProductName", "dunamis" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
