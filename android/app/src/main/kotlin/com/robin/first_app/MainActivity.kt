@@ -1,4 +1,4 @@
-package com.robin.first_app
+package com.robin.dunamis
 
 import io.flutter.embedding.android.FlutterActivity
 

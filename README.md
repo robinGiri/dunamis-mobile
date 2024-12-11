@@ -1,4 +1,4 @@
-# first_app
+# dunamis
 
 A new Flutter project.
 
