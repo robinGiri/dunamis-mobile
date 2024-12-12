@@ -1,4 +1,4 @@
-import 'package:dunamis/view/OnboardingPage.dart';
+import 'package:dunamis/view/onboarding_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
