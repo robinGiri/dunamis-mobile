@@ -60,126 +60,145 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 20),
-
-              // Welcome Text Section
-              const Text(
-                'Welcome back',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF80D8FF), Color(0xFF2962FF)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Card(
+                elevation: 8,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Welcome back. Enter your credentials to access your account.',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 30),
-
-              // Email Text Field
-              TextField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                  labelText: "Email Address",
-                  hintText: "hello@example.com",
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.emailAddress,
-              ),
-              const SizedBox(height: 15),
-
-              // Password Text Field with Eye Icon
-              TextField(
-                controller: _passwordController,
-                obscureText: _obscurePassword,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  hintText: "Password",
-                  border: const OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscurePassword
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _obscurePassword = !_obscurePassword;
-                      });
-                    },
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // Login Button
-              ElevatedButton(
-                onPressed: _login,
-                child: const Text("Login"),
-              ),
-              const SizedBox(height: 20),
-
-              // Biometric Login
-              const Center(
-                child: Text(
-                  "Or login with",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15),
-
-              Center(
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.fingerprint,
-                    size: 60,
-                    color: Colors.blue,
-                  ),
-                  onPressed: _biometricLogin,
-                ),
-              ),
-              const SizedBox(height: 15),
-
-              // Sign-Up Text
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Don’t have an Account? "),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RegisterPage()),
-                      );
-                    },
-                    child: const Text(
-                      "Sign up here",
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const SizedBox(height: 20),
+                      const Text(
+                        'Welcome back',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                    ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Enter your credentials to access your account.',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 30),
+                      TextField(
+                        controller: _emailController,
+                        decoration: const InputDecoration(
+                          labelText: "Email Address",
+                          hintText: "hello@example.c",
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      const SizedBox(height: 15),
+                      TextField(
+                        controller: _passwordController,
+                        obscureText: _obscurePassword,
+                        decoration: InputDecoration(
+                          labelText: "Password",
+                          hintText: "Enter your password",
+                          border: const OutlineInputBorder(),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: _login,
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.all(16.0),
+                          backgroundColor: Colors.grey.shade800,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Text(
+                          "Login",
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      // Biometric Login
+                      const Center(
+                        child: Text(
+                          "Or login with",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+
+                      Center(
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.fingerprint,
+                            size: 60,
+                            color: Colors.grey.shade800,
+                          ),
+                          onPressed: _biometricLogin,
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text("Don’t have an Account? "),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RegisterPage()),
+                              );
+                            },
+                            child: const Text(
+                              "Sign up here",
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ],
+            ),
           ),
         ),
       ),

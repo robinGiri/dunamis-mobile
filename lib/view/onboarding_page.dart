@@ -67,7 +67,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     Icon(
                       _onboardingData[index]["icon"],
                       size: 150,
-                      color: Colors.blue,
+                      color: Colors.grey.shade800,
                     ),
                     const SizedBox(height: 40),
                     Text(
@@ -109,7 +109,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   height: 10,
                   decoration: BoxDecoration(
                     color: _currentIndex == index
-                        ? Colors.blue
+                        ? Colors.grey.shade800
                         : Colors.grey.shade400,
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -127,7 +127,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               onPressed: _goToNext,
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(16.0),
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.grey.shade800,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -136,7 +136,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 _currentIndex == _onboardingData.length - 1
                     ? "Get Started"
                     : "Next",
-                style: const TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
           ),
