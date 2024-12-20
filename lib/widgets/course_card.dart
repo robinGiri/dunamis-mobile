@@ -14,34 +14,82 @@ class CourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isLarge = variant == CourseCardVariant.large;
+    final theme = Theme.of(context);
+
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       elevation: 2,
-      child: Row(
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Image.network(
-          //   course.imageUrl,
-          //   width: isLarge ? 100 : 60,
-          //   height: isLarge ? 100 : 60,
-          //   fit: BoxFit.cover,
-          // ),
-          const SizedBox(width: 8.0),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(course.title,
-                    style: Theme.of(context).textTheme.titleMedium),
-                Text(course.category,
-                    style: Theme.of(context).textTheme.bodySmall),
-                Row(
-                  children: [
-                    Text('${course.rating} ★'),
-                    const SizedBox(width: 8.0),
-                    Text('${course.reviews} reviews'),
-                  ],
-                ),
-                Text(course.price == 0 ? 'Free' : 'Nrs. ${course.price}'),
-              ],
+          Image.network(
+            course.imageUrl,
+            height: isLarge ? 160 : 100,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: DefaultTextStyle(
+              style: theme.textTheme.bodyMedium!,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        course.category,
+                        style: theme.textTheme.bodySmall
+                            ?.copyWith(color: Colors.grey[600]),
+                      ),
+                      const SizedBox(width: 8.0),
+                      Row(
+                        children: [
+                          const Icon(Icons.star,
+                              color: Colors.orangeAccent, size: 16),
+                          const SizedBox(width: 4),
+                          Text('${course.rating}'),
+                          const SizedBox(width: 8),
+                          Text('(${course.reviews})',
+                              style: theme.textTheme.bodySmall),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    course.title,
+                    style: theme.textTheme.titleLarge
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 8.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        course.price == 0 ? 'Free' : 'Nrs. ${course.price}',
+                        style: theme.textTheme.bodyMedium
+                            ?.copyWith(fontWeight: FontWeight.w600),
+                      ),
+                      if (isLarge)
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            textStyle: theme.textTheme.bodyMedium
+                                ?.copyWith(color: Colors.white),
+                          ),
+                          onPressed: () {},
+                          child: Text(
+                              course.price == 0 ? 'Enroll' : 'Try for Free'),
+                        )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],

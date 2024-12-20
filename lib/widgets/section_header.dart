@@ -9,15 +9,23 @@ class SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: Theme.of(context).textTheme.titleLarge),
+        Text(
+          title,
+          style:
+              theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+        ),
         GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, seeAllLink);
           },
-          child: Text('See All', style: TextStyle(color: Colors.blue)),
+          child: Text(
+            "See All",
+            style: theme.textTheme.bodyMedium?.copyWith(color: Colors.blue),
+          ),
         ),
       ],
     );

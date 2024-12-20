@@ -21,32 +21,50 @@ class HomeScreen extends StatelessWidget {
         Course(
           id: 'c1',
           title: 'Webflow Course',
-          category: 'Self Development',
+          category: 'Development',
           price: 2500,
           rating: 5.0,
           reviews: 10,
-          imageUrl: 'https://picsum.photos/seed/picsum/200/300',
+          imageUrl: 'https://picsum.photos/id/237/200/300',
         ),
       ];
 
   List<Course> get topRatedCourses => [
         Course(
-          id: 'c2',
+          id: 'c1',
           title: 'Pneumatology',
-          category: 'Self Development',
+          category: 'Development',
           price: 2500,
           rating: 5.0,
           reviews: 18,
-          imageUrl: 'https://picsum.photos/seed/picsum/200/300',
+          imageUrl: 'https://picsum.photos/id/247/200/300',
         ),
         Course(
-          id: 'c3',
+          id: 'c2',
           title: 'Hermeneutics',
           category: 'Programming',
           price: 2500,
           rating: 5.0,
           reviews: 16,
-          imageUrl: 'https://picsum.photos/seed/picsum/200/300',
+          imageUrl: 'https://picsum.photos/id/217/200/300',
+        ),
+        Course(
+          id: 'c3',
+          title: 'Pneumatology',
+          category: 'Development',
+          price: 2500,
+          rating: 5.0,
+          reviews: 18,
+          imageUrl: 'https://picsum.photos/id/241/200/300',
+        ),
+        Course(
+          id: 'c4',
+          title: 'Hermeneutics',
+          category: 'Programming',
+          price: 2500,
+          rating: 5.0,
+          reviews: 16,
+          imageUrl: 'https://picsum.photos/id/212/200/300',
         ),
       ];
 
@@ -58,7 +76,7 @@ class HomeScreen extends StatelessWidget {
           coursesCount: 6,
           rating: 5.0,
           followers: 12400,
-          imageUrl: 'https://picsum.photos/seed/picsum/200/300',
+          imageUrl: 'https://picsum.photos/id/327/200/300',
         ),
         Instructor(
           id: 'i2',
@@ -67,7 +85,7 @@ class HomeScreen extends StatelessWidget {
           coursesCount: 6,
           rating: 5.0,
           followers: 12400,
-          imageUrl: 'https://picsum.photos/seed/picsum/200/300',
+          imageUrl: 'https://picsum.photos/id/247/200/300',
         ),
       ];
 
@@ -79,7 +97,7 @@ class HomeScreen extends StatelessWidget {
           price: 0,
           rating: 5.0,
           reviews: 26,
-          imageUrl: 'https://picsum.photos/seed/picsum/200/300',
+          imageUrl: 'https://picsum.photos/id/287/200/300',
         ),
         Course(
           id: 'c5',
@@ -88,7 +106,7 @@ class HomeScreen extends StatelessWidget {
           price: 0,
           rating: 5.0,
           reviews: 18,
-          imageUrl: 'https://picsum.photos/seed/picsum/200/300',
+          imageUrl: 'https://picsum.photos/id/27/200/300',
         ),
       ];
 
@@ -107,12 +125,15 @@ class HomeScreen extends StatelessWidget {
               TopRatedSection(courses: topRatedCourses),
               InstructorsSection(instructors: instructors),
               FreeCoursesSection(courses: freeCourses),
-              const SizedBox(height: 100), // padding for bottom nav overlap
+              const SizedBox(height: 10), // padding for bottom nav overlap
             ],
           ),
         ),
       ),
-      // bottomNavigationBar: const BottomNav(),
+      bottomNavigationBar: BottomNav(
+        currentIndex: 0,
+        onItemTapped: (int value) {},
+      ),
     );
   }
 }

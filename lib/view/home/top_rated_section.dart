@@ -10,17 +10,29 @@ class TopRatedSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (courses.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SectionHeader(title: 'Just for you', seeAllLink: '/just-for-you'),
+        SectionHeader(title: 'Top Rated', seeAllLink: '/top-rated'),
         const SizedBox(height: 8.0),
-        // You can customize the layout as needed (GridView, Carousel, etc.)
-        Column(
-          children: courses
-              .map((c) =>
-                  CourseCard(course: c, variant: CourseCardVariant.large))
-              .toList(),
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: courses.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, // two columns
+            mainAxisSpacing: 8.0,
+            crossAxisSpacing: 8.0,
+            childAspectRatio: 0.75,
+          ),
+          itemBuilder: (context, index) {
+            final course = courses[index];
+            return CourseCard(course: course);
+          },
         ),
       ],
     );
