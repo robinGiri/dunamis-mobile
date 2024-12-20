@@ -1,3 +1,4 @@
+import 'package:dunamis/view/features/search/search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'register_page.dart';
@@ -48,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
         _passwordController.text == "password") {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => DashboardPage()),
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

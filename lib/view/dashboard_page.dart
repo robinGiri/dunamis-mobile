@@ -1,3 +1,4 @@
+import 'package:dunamis/view/features/search/search_view.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -9,7 +10,7 @@ class _DashboardPageState extends State<DashboardPage> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    Center(child: Text("Search Page", style: TextStyle(fontSize: 24))),
+    Center(child: HomeScreen()),
     Center(child: Text("My Course Page", style: TextStyle(fontSize: 24))),
     Center(child: Text("Library Page", style: TextStyle(fontSize: 24))),
     Center(child: Text("Account Page", style: TextStyle(fontSize: 24))),
@@ -26,7 +27,6 @@ class _DashboardPageState extends State<DashboardPage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Dashboard")),
       body: _pages[_currentIndex],
-
       // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
