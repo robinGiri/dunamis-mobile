@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:dunamis/core/app_theme/app_theme.dart';
-import 'package:dunamis/view/onboarding_page.dart';
+import 'package:dunamis/app/app.dart';
+import 'package:dunamis/app/di/di.dart';
+import 'package:dunamis/core/network/hive_service.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await HiveService.init();
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  await initDependencies();
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: getApplicationTheme(),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => OnboardingPage(),
-      },
-    );
-  }
+  runApp(
+    App(),
+  );
 }
