@@ -3,7 +3,7 @@ class ApiEndpoints {
 
   static const Duration connectionTimeout = Duration(seconds: 1000);
   static const Duration receiveTimeout = Duration(seconds: 1000);
-  static const String baseUrl = "http://10.0.2.2:3000/api/v1/";
+  static const String baseUrl = "http://localhost:3000/api/v1/";
 
   // ====================== Auth Routes ======================
   static const String login = "auth/login";
@@ -13,7 +13,7 @@ class ApiEndpoints {
   static const String getStudentsByCourse = "auth/getStudentsByCourse/";
   static const String updateStudent = "auth/updateStudent/";
   static const String deleteStudent = "auth/deleteStudent/";
-  static const String imageUrl = "http://10.0.2.2:3000/uploads/";
+  static const String imageUrl = "http://localhost:3000/uploads/";
   static const String uploadImage = "auth/uploadImage";
 
   // ====================== Batch Routes ======================

@@ -51,6 +51,19 @@ class AuthLocalDataSource implements IAuthDataSource {
   }
 
   @override
+  Future<void> updateStudent(AuthEntity student) async {
+    try {
+      // Convert AuthEntity to AuthHiveModel
+      final authHiveModel = AuthHiveModel.fromEntity(student);
+
+      await _hiveService.updateStudent(authHiveModel);
+      return Future.value();
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  @override
   Future<String> uploadProfilePicture(File file) {
     throw UnimplementedError();
   }

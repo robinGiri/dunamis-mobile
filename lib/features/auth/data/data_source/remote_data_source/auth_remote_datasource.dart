@@ -40,6 +40,35 @@ class AuthRemoteDataSource implements IAuthDataSource {
   }
 
   @override
+  Future<void> updateStudent(AuthEntity student) async {
+    try {
+      Response response = await _dio.post(
+        ApiEndpoints.register,
+        data: {
+          "fname": student.fName,
+          "lname": student.lName,
+          "phone": student.phone,
+          "image": student.image,
+          "username": student.username,
+          "password": student.password,
+          "batch": student.batch?.batchId,
+          "course": student.courses?.map((e) => e.courseId).toList(),
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return;
+      } else {
+        throw Exception(response.statusMessage);
+      }
+    } on DioException catch (e) {
+      throw Exception(e);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
   Future<AuthEntity> getCurrentUser() {
     // TODO: implement getCurrentUser
     throw UnimplementedError();

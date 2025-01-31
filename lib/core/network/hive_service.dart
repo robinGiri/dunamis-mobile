@@ -59,6 +59,12 @@ class HiveService {
     await box.put(auth.studentId, auth);
   }
 
+  // Auth Queries
+  Future<void> updateStudent(AuthHiveModel auth) async {
+    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.studentBox);
+    await box.put(auth.studentId, auth);
+  }
+
   Future<void> deleteAuth(String id) async {
     var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.studentBox);
     await box.delete(id);

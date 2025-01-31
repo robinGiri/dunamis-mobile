@@ -22,6 +22,16 @@ class AuthRemoteRepository implements IAuthRepository {
   }
 
   @override
+  Future<Either<Failure, void>> updateStudent(AuthEntity student) async {
+    try {
+      await _authRemoteDataSource.updateStudent(student);
+      return Right(null);
+    } catch (e) {
+      return Left(ApiFailure(message: e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, AuthEntity>> getCurrentUser() {
     // TODO: implement getCurrentUser
     throw UnimplementedError();

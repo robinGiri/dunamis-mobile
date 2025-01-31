@@ -44,6 +44,15 @@ class AuthLocalRepository implements IAuthRepository {
   }
 
   @override
+  Future<Either<Failure, void>> updateStudent(AuthEntity student) async {
+    try {
+      return Right(_authLocalDataSource.updateStudent(student));
+    } catch (e) {
+      return Left(LocalDatabaseFailure(message: e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, String>> uploadProfilePicture(File file) async {
     // TODO: implement uploadProfilePicture
     throw UnimplementedError();

@@ -1,3 +1,5 @@
+import 'package:dunamis/features/auth/presentation/view/update_account_view.dart';
+import 'package:dunamis/features/auth/presentation/view_model/signup/register_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,8 +34,12 @@ class HomeState extends Equatable {
           create: (context) => getIt<BatchBloc>(),
           child: BatchView(),
         ),
-        const Center(
-          child: Text('Account'),
+        MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: getIt<CourseBloc>()),
+            BlocProvider.value(value: getIt<RegisterBloc>()),
+          ],
+          child: UpdateAccountView(),
         ),
       ],
     );
