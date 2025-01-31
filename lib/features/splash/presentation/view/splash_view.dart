@@ -16,35 +16,51 @@ class _SplashViewState extends State<SplashView> {
     context.read<SplashCubit>().init(context);
   }
 
+  final _gap = const SizedBox(height: 20);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[50],
-      body: Stack(
-        children: [
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 200,
-                  width: 200,
-                  child: Image.asset('assets/images/splash.png'),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'Welcome to Dunamis',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
                 ),
-                const Text(
-                  'Student Learning Application',
-                  style: TextStyle(
-                    fontSize: 25,
-                  ),
+                textAlign: TextAlign.center,
+              ),
+              _gap,
+              SizedBox(
+                child:
+                    Image.asset('assets/images/splash.png', fit: BoxFit.cover),
+              ),
+              _gap,
+              const CircularProgressIndicator(
+                color: Colors.black87,
+                strokeWidth: 3,
+              ),
+              _gap,
+              const Text(
+                'Student Learning Application',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black87,
                 ),
-                const SizedBox(height: 10),
-                const CircularProgressIndicator(),
-                const SizedBox(height: 10),
-                const Text('version : 0.0.1')
-              ],
-            ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

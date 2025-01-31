@@ -11,4 +11,11 @@ class BatchEntity extends Equatable {
 
   @override
   List<Object?> get props => [batchId, batchName];
+
+  static BatchEntity initial() {
+    return const BatchEntity(
+      batchId: null,
+      batchName: '',
+    );
+  }
 }

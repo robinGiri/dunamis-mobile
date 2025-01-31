@@ -1,3 +1,4 @@
+import 'package:dunamis/features/batch/domain/entity/batch_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:dunamis/app/constants/hive_table_constant.dart';
@@ -19,7 +20,7 @@ class AuthHiveModel extends Equatable {
   @HiveField(3)
   final String? image;
   @HiveField(4)
-  final String phone;
+  final String? phone;
   @HiveField(5)
   final BatchHiveModel? batch;
   @HiveField(6)
@@ -34,7 +35,7 @@ class AuthHiveModel extends Equatable {
     required this.fName,
     required this.lName,
     this.image,
-    required this.phone,
+    this.phone,
     this.batch,
     this.courses,
     required this.username,
@@ -61,9 +62,7 @@ class AuthHiveModel extends Equatable {
       lName: entity.lName,
       image: entity.image,
       phone: entity.phone,
-      batch: entity.batch != null
-          ? BatchHiveModel.fromEntity(entity.batch!)
-          : null,
+      batch: BatchHiveModel.fromEntity(entity.batch ?? BatchEntity.initial()),
       courses: CourseHiveModel.fromEntityList(entity.courses ?? []),
       username: entity.username,
       password: entity.password,
@@ -79,7 +78,7 @@ class AuthHiveModel extends Equatable {
       image: image,
       phone: phone,
       batch: batch?.toEntity(),
-      courses: CourseHiveModel.toEntityList(courses ?? []),
+      courses: CourseHiveModel.toEntityList(courses!),
       username: username,
       password: password,
     );

@@ -14,19 +14,17 @@ class AuthLocalDataSource implements IAuthDataSource {
   @override
   Future<AuthEntity> getCurrentUser() {
     // Return Empty AuthEntity
-    return Future.value(
-      AuthEntity(
-        userId: "1",
-        fName: "",
-        lName: "",
-        image: null,
-        phone: "",
-        batch: BatchEntity(batchName: ""),
-        courses: [],
-        username: "",
-        password: "",
-      ),
-    );
+    return Future.value(AuthEntity(
+      userId: "1",
+      fName: "",
+      lName: "",
+      image: null,
+      phone: "",
+      batch: BatchEntity(batchName: ""),
+      courses: [],
+      username: "",
+      password: "",
+    ));
   }
 
   @override
