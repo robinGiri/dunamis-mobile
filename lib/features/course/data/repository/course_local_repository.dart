@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dunamis/core/error/failure.dart';
-import 'package:dunamis/features/course/data/data_source/course_local_data_source.dart';
+import 'package:dunamis/features/course/data/data_source/local_datasource/course_local_data_source.dart';
 import 'package:dunamis/features/course/domain/entity/course_entity.dart';
 import 'package:dunamis/features/course/domain/repository/course_repository.dart';
 

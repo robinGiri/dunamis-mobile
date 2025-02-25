@@ -27,7 +27,7 @@ class BatchBloc extends Bloc<BatchEvent, BatchState> {
     on<DeleteBatch>(_onDeleteBatch);
 
     // Call this event whenever the bloc is created to load the batches
-    add(LoadBatches());
+    //add(LoadBatches());
   }
 
   Future<void> _onLoadBatches(
@@ -35,9 +35,12 @@ class BatchBloc extends Bloc<BatchEvent, BatchState> {
     emit(state.copyWith(isLoading: true));
     final result = await _getAllBatchUseCase.call();
     result.fold(
-      (failure) =>
-          emit(state.copyWith(isLoading: false, error: failure.message)),
-      (batches) => emit(state.copyWith(isLoading: false, batches: batches)),
+      (failure) {
+        emit(state.copyWith(isLoading: false, error: failure.message));
+      },
+      (batches) {
+        emit(state.copyWith(isLoading: false, batches: batches));
+      },
     );
   }
 
@@ -50,7 +53,6 @@ class BatchBloc extends Bloc<BatchEvent, BatchState> {
           emit(state.copyWith(isLoading: false, error: failure.message)),
       (batches) {
         emit(state.copyWith(isLoading: false, error: null));
-
         add(LoadBatches());
       },
     );
