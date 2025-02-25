@@ -28,15 +28,15 @@ class HomeView extends StatelessWidget {
               context.read<HomeCubit>().logout(context);
             },
           ),
-          // Switch(
-          //   value: _isDarkTheme,
-          //   onChanged: (value) {
-          //     // Change theme
-          //     // setState(() {
-          //     //   _isDarkTheme = value;
-          //     // });
-          //   },
-          // ),
+          Switch(
+            value: _isDarkTheme,
+            onChanged: (value) {
+              // Change theme
+              // setState(() {
+              //   _isDarkTheme = value;
+              // });
+            },
+          ),
         ],
       ),
       // body: _views.elementAt(_selectedIndex),

@@ -8,8 +8,8 @@ class AuthEntity extends Equatable {
   final String lName;
   final String? image;
   final String phone;
-  final BatchEntity? batch;
-  final List<CourseEntity>? courses;
+  final BatchEntity batch;
+  final List<CourseEntity> courses;
   final String username;
   final String password;
 
@@ -19,8 +19,8 @@ class AuthEntity extends Equatable {
     required this.lName,
     this.image,
     required this.phone,
-    this.batch,
-    this.courses,
+    required this.batch,
+    required this.courses,
     required this.username,
     required this.password,
   });

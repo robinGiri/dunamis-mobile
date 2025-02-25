@@ -1,6 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:multi_select_flutter/util/multi_select_list_type.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:dunamis/features/auth/presentation/view_model/signup/register_bloc.dart';
+import 'package:dunamis/features/batch/domain/entity/batch_entity.dart';
+import 'package:dunamis/features/batch/presentation/view_model/batch_bloc.dart';
+import 'package:dunamis/features/course/domain/entity/course_entity.dart';
+import 'package:dunamis/features/course/presentation/view_model/course_bloc.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -12,21 +23,48 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   final _gap = const SizedBox(height: 8);
   final _key = GlobalKey<FormState>();
-  final _fnameController = TextEditingController(text: 'First Name');
-  final _lnameController = TextEditingController(text: 'Last Name');
-  final _phoneController = TextEditingController(text: '9899999999');
-  final _usernameController = TextEditingController(text: 'username');
-  final _passwordController = TextEditingController(text: 'password');
+  final _fnameController = TextEditingController();
+  final _lnameController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  BatchEntity? _dropDownValue;
+  final List<CourseEntity> _lstCourseSelected = [];
+
+  // Check for camera permission
+  Future<void> checkCameraPermission() async {
+    if (await Permission.camera.request().isRestricted ||
+        await Permission.camera.request().isDenied) {
+      await Permission.camera.request();
+    }
+  }
+
+  File? _img;
+  Future _browseImage(ImageSource imageSource) async {
+    try {
+      final image = await ImagePicker().pickImage(source: imageSource);
+      if (image != null) {
+        setState(() {
+          _img = File(image.path);
+          // Send image to server
+          context.read<RegisterBloc>().add(
+                UploadImage(file: _img!),
+              );
+        });
+      } else {
+        return;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: BlocBuilder<RegisterBloc, RegisterState>(
-          builder: (context, state) {
-            return Text('Register Student');
-          },
-        ),
+        title: Text('Register Student'),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -55,13 +93,18 @@ class _RegisterViewState extends State<RegisterView> {
                             children: [
                               ElevatedButton.icon(
                                 onPressed: () {
+                                  checkCameraPermission();
+                                  _browseImage(ImageSource.camera);
                                   Navigator.pop(context);
                                 },
                                 icon: const Icon(Icons.camera),
                                 label: const Text('Camera'),
                               ),
                               ElevatedButton.icon(
-                                onPressed: () {},
+                                onPressed: () {
+                                  _browseImage(ImageSource.gallery);
+                                  Navigator.pop(context);
+                                },
                                 icon: const Icon(Icons.image),
                                 label: const Text('Gallery'),
                               ),
@@ -75,8 +118,9 @@ class _RegisterViewState extends State<RegisterView> {
                       width: 200,
                       child: CircleAvatar(
                         radius: 50,
-                        backgroundImage:
-                            const AssetImage('assets/images/profile.png')
+                        backgroundImage: _img != null
+                            ? FileImage(_img!)
+                            : const AssetImage('assets/images/profile.png')
                                 as ImageProvider,
                       ),
                     ),
@@ -121,6 +165,71 @@ class _RegisterViewState extends State<RegisterView> {
                     }),
                   ),
                   _gap,
+                  BlocBuilder<BatchBloc, BatchState>(builder: (context, state) {
+                    return DropdownButtonFormField<BatchEntity>(
+                      items: state.batches
+                          .map((e) => DropdownMenuItem<BatchEntity>(
+                                value: e,
+                                child: Text(e.batchName),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        _dropDownValue = value;
+                      },
+                      value: _dropDownValue,
+                      decoration: const InputDecoration(
+                        labelText: 'Select Batch',
+                      ),
+                      validator: ((value) {
+                        if (value == null) {
+                          return 'Please select batch';
+                        }
+                        return null;
+                      }),
+                    );
+                  }),
+                  _gap,
+                  BlocBuilder<CourseBloc, CourseState>(
+                      builder: (context, courseState) {
+                    if (courseState.isLoading) {
+                      return const CircularProgressIndicator();
+                    } else {
+                      return MultiSelectDialogField(
+                        title: const Text('Select course'),
+                        items: courseState.courses
+                            .map(
+                              (course) => MultiSelectItem(
+                                course,
+                                course.courseName,
+                              ),
+                            )
+                            .toList(),
+                        listType: MultiSelectListType.CHIP,
+                        buttonText: const Text(
+                          'Select course',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        buttonIcon: const Icon(Icons.search),
+                        onConfirm: (values) {
+                          _lstCourseSelected.clear();
+                          _lstCourseSelected.addAll(values);
+                        },
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black87,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        validator: ((value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select courses';
+                          }
+                          return null;
+                        }),
+                      );
+                    }
+                  }),
+                  _gap,
                   TextFormField(
                     controller: _usernameController,
                     decoration: const InputDecoration(
@@ -153,14 +262,20 @@ class _RegisterViewState extends State<RegisterView> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_key.currentState!.validate()) {
+                          final registerState =
+                              context.read<RegisterBloc>().state;
+                          final imageName = registerState.imageName;
                           context.read<RegisterBloc>().add(
                                 RegisterStudent(
                                   context: context,
                                   fName: _fnameController.text,
                                   lName: _lnameController.text,
                                   phone: _phoneController.text,
+                                  batch: _dropDownValue!,
+                                  courses: _lstCourseSelected,
                                   username: _usernameController.text,
                                   password: _passwordController.text,
+                                  image: imageName,
                                 ),
                               );
                         }

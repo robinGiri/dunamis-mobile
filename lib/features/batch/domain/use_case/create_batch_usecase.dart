@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:dunamis/app/usecase/usecase.dart';
 import 'package:dunamis/core/error/failure.dart';
-import 'package:dunamis/features/batch/domain/repository/batch_repository.dart';
 import 'package:dunamis/features/batch/domain/entity/batch_entity.dart';
+import 'package:dunamis/features/batch/domain/repository/batch_repository.dart';
 
 class CreateBatchParams extends Equatable {
   final String batchName;
@@ -11,7 +11,7 @@ class CreateBatchParams extends Equatable {
   const CreateBatchParams({required this.batchName});
 
   // Empty constructor
-  const CreateBatchParams.empty() : batchName = '_empty.string';
+  const CreateBatchParams.empty() : batchName = '_empty.batchName';
 
   @override
   List<Object?> get props => [batchName];
