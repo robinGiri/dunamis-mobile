@@ -1,4 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:dunamis/features/dashboard/data/data_source/remote_datasource/course_remote_datasource.dart';
+import 'package:dunamis/features/dashboard/data/repository/dashboard_remote_repository.dart';
+import 'package:dunamis/features/dashboard/domain/use_case/create_course_usecase.dart';
+import 'package:dunamis/features/dashboard/domain/use_case/delete_course_usecase.dart';
+import 'package:dunamis/features/dashboard/domain/use_case/get_all_course_usecase.dart';
+import 'package:dunamis/features/dashboard/presentation/view_model/course_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dunamis/app/shared_prefs/token_shared_prefs.dart';
@@ -116,6 +122,9 @@ _initCourseDependencies() {
   getIt.registerFactory<CourseRemoteDataSource>(
       () => CourseRemoteDataSource(getIt<Dio>()));
 
+  getIt.registerFactory<DashboardRemoteDataSource>(
+      () => DashboardRemoteDataSource(getIt<Dio>()));
+
   // =========================== Repository ===========================
 
   getIt.registerLazySingleton<CourseLocalRepository>(() =>
@@ -125,6 +134,14 @@ _initCourseDependencies() {
   getIt.registerLazySingleton<CourseRemoteRepository>(
     () => CourseRemoteRepository(
       getIt<CourseRemoteDataSource>(),
+    ),
+  );
+
+  // =========================== Repository ===========================
+
+  getIt.registerLazySingleton<DashboardCourseRemoteRepository>(
+    () => DashboardCourseRemoteRepository(
+      getIt<DashboardRemoteDataSource>(),
     ),
   );
 
@@ -141,6 +158,24 @@ _initCourseDependencies() {
     ),
   );
 
+  getIt.registerLazySingleton<GetAllCourseListUsecase>(
+    () => GetAllCourseListUsecase(
+      courseRepository: getIt<DashboardCourseRemoteRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<LoadCategoryUsecase>(
+    () => LoadCategoryUsecase(
+      courseRepository: getIt<DashboardCourseRemoteRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<ListUsersUsecase>(
+    () => ListUsersUsecase(
+      courseRepository: getIt<DashboardCourseRemoteRepository>(),
+    ),
+  );
+
   getIt.registerLazySingleton<DeleteCourseUsecase>(
     () => DeleteCourseUsecase(
       courseRepository: getIt<CourseLocalRepository>(),
@@ -154,6 +189,14 @@ _initCourseDependencies() {
       getAllCourseUsecase: getIt<GetAllCourseUsecase>(),
       createCourseUsecase: getIt<CreateCourseUsecase>(),
       deleteCourseUsecase: getIt<DeleteCourseUsecase>(),
+    ),
+  );
+
+  getIt.registerFactory<DashboardCourseBloc>(
+    () => DashboardCourseBloc(
+      getAllCourseUsecase: getIt<GetAllCourseListUsecase>(),
+      loadCategoryUsecase: getIt<LoadCategoryUsecase>(),
+      listUsersUsecase: getIt<ListUsersUsecase>(),
     ),
   );
 }

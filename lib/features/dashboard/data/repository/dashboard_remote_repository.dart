@@ -1,0 +1,21 @@
+import 'package:dartz/dartz.dart';
+import 'package:dunamis/core/error/failure.dart';
+import 'package:dunamis/features/dashboard/data/data_source/remote_datasource/course_remote_datasource.dart';
+import 'package:dunamis/features/dashboard/domain/entity/course_entity.dart';
+import 'package:dunamis/features/dashboard/domain/repository/dashboard_repository.dart';
+
+class DashboardCourseRemoteRepository implements ICourseRepository {
+  final DashboardRemoteDataSource _courseRemoteDataSource;
+
+  DashboardCourseRemoteRepository(this._courseRemoteDataSource);
+
+  @override
+  Future<Either<Failure, List<CourseListEntity>>> getCoursesList() async {
+    try {
+      final courses = await _courseRemoteDataSource.getCoursesList();
+      return Right(courses);
+    } catch (e) {
+      return Left(ApiFailure(message: e.toString()));
+    }
+  }
+}
