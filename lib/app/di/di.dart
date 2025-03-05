@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:dunamis/features/dashboard/data/data_source/remote_datasource/course_remote_datasource.dart';
 import 'package:dunamis/features/dashboard/data/repository/dashboard_remote_repository.dart';
-import 'package:dunamis/features/dashboard/domain/use_case/create_course_usecase.dart';
-import 'package:dunamis/features/dashboard/domain/use_case/delete_course_usecase.dart';
+import 'package:dunamis/features/dashboard/domain/use_case/list_category_usecase.dart';
+import 'package:dunamis/features/dashboard/domain/use_case/list_users_usecase.dart';
 import 'package:dunamis/features/dashboard/domain/use_case/get_all_course_usecase.dart';
 import 'package:dunamis/features/dashboard/presentation/view_model/course_bloc.dart';
 import 'package:get_it/get_it.dart';

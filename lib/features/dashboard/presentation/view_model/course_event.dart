@@ -1,6 +1,6 @@
 part of 'course_bloc.dart';
 
-sealed class CourseEvent extends Equatable {
+abstract class CourseEvent extends Equatable {
   const CourseEvent();
 
   @override
@@ -9,12 +9,6 @@ sealed class CourseEvent extends Equatable {
 
 class CourseLoad extends CourseEvent {}
 
-class ListCategory extends CourseEvent {
-  @override
-  List<Object> get props => [];
-}
+class ListCategory extends CourseEvent {}
 
-class ListUsers extends CourseEvent {
-  @override
-  List<Object> get props => [];
-}
+class ListUsers extends CourseEvent {}
