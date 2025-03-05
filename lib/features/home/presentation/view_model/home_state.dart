@@ -1,3 +1,5 @@
+import 'package:dunamis/features/dashboard/presentation/view/course_view.dart';
+import 'package:dunamis/features/dashboard/presentation/view_model/course_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,8 +23,9 @@ class HomeState extends Equatable {
     return HomeState(
       selectedIndex: 0,
       views: [
-        const Center(
-          child: Text('Dashboard'),
+        BlocProvider(
+          create: (context) => getIt<DashboardCourseBloc>(),
+          child: DashboardView(),
         ),
         BlocProvider(
           create: (context) => getIt<CourseBloc>(),
