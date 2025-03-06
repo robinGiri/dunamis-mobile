@@ -8,10 +8,14 @@ part 'course_api_model.g.dart';
 class CourseApiModel extends Equatable {
   @JsonKey(name: '_id')
   final String? courseId;
+  final String? author;
+  final String? description;
   final String courseName;
 
   const CourseApiModel({
     this.courseId,
+    this.author,
+    this.description,
     required this.courseName,
   });
 
@@ -26,6 +30,8 @@ class CourseApiModel extends Equatable {
   factory CourseApiModel.fromEntity(CourseEntity entity) {
     return CourseApiModel(
       courseId: entity.courseId,
+      author: entity.author,
+      description: entity.description,
       courseName: entity.courseName,
     );
   }
@@ -34,6 +40,8 @@ class CourseApiModel extends Equatable {
   CourseEntity toEntity() {
     return CourseEntity(
       courseId: courseId,
+      author: author,
+      description: description,
       courseName: courseName,
     );
   }

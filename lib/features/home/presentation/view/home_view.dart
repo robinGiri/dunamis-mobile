@@ -7,8 +7,6 @@ import 'package:dunamis/features/home/presentation/view_model/home_state.dart';
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
-  final bool _isDarkTheme = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,17 +22,7 @@ class HomeView extends StatelessWidget {
                 message: 'Logging out',
                 color: Colors.red,
               );
-
               context.read<HomeCubit>().logout(context);
-            },
-          ),
-          Switch(
-            value: _isDarkTheme,
-            onChanged: (value) {
-              // Change theme
-              // setState(() {
-              //   _isDarkTheme = value;
-              // });
             },
           ),
         ],
@@ -53,15 +41,15 @@ class HomeView extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.book),
-                label: 'Course',
+                label: 'Courses',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.group),
-                label: 'Batch',
+                icon: Icon(Icons.question_answer),
+                label: 'Quitz',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle),
-                label: 'Account',
+                label: 'My Account',
               ),
             ],
             currentIndex: state.selectedIndex,

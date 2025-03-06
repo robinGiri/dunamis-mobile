@@ -19,29 +19,6 @@ class CourseView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextFormField(
-                controller: courseNameController,
-                decoration: const InputDecoration(
-                  labelText: 'Course Name',
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter course name';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  if (_courseViewFormKey.currentState!.validate()) {
-                    context.read<CourseBloc>().add(
-                          CreateCourse(courseName: courseNameController.text),
-                        );
-                  }
-                },
-                child: Text('Add Course'),
-              ),
               SizedBox(height: 10),
               BlocBuilder<CourseBloc, CourseState>(
                 builder: (context, state) {
@@ -57,12 +34,23 @@ class CourseView extends StatelessWidget {
                           final course = state.courses[index];
                           return ListTile(
                             title: Text(course.courseName),
-                            subtitle: Text(course.courseId!),
-                            trailing: IconButton(
-                              icon: Icon(Icons.delete),
+                            subtitle: Text(course.description ??
+                                'No description available'),
+                            leading: IconButton(
+                              icon: CircleAvatar(
+                                child: Text(course.author ?? 'Robin'),
+                              ),
                               onPressed: () {
                                 context.read<CourseBloc>().add(
-                                      DeleteCourse(id: course.courseId!),
+                                      ViewCourse(id: course.courseId!),
+                                    );
+                              },
+                            ),
+                            trailing: IconButton(
+                              icon: Icon(Icons.view_agenda),
+                              onPressed: () {
+                                context.read<CourseBloc>().add(
+                                      ViewCourse(id: course.courseId!),
                                     );
                               },
                             ),

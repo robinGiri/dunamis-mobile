@@ -22,7 +22,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         super(CourseState.initial()) {
     on<CourseLoad>(_onCourseLoad);
     on<CreateCourse>(_onCreateCourse);
-    on<DeleteCourse>(_onDeleteCourse);
+    on<ViewCourse>(_onDeleteCourse);
 
     add(CourseLoad());
   }
@@ -58,7 +58,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
   }
 
   Future<void> _onDeleteCourse(
-    DeleteCourse event,
+    ViewCourse event,
     Emitter<CourseState> emit,
   ) async {
     emit(state.copyWith(isLoading: true));

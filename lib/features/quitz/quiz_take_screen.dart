@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:geolocator/geolocator.dart';
 
 class QuizTakeScreen extends StatefulWidget {
   @override
@@ -14,11 +15,54 @@ class _QuizTakeScreenState extends State<QuizTakeScreen> {
   Map<String, String> answers = {};
   bool quizStarted = false;
   Map<String, dynamic>? result;
+  String locationMessage = "Locating...";
 
   @override
   void initState() {
     super.initState();
     fetchCategories();
+    getCurrentLocation();
+  }
+
+  // Get current location using geolocator package
+  Future<void> getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Check if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      setState(() {
+        locationMessage = "Location services are disabled.";
+      });
+      return;
+    }
+
+    // Check for permission
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        setState(() {
+          locationMessage = "Location permissions are denied.";
+        });
+        return;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      setState(() {
+        locationMessage = "Location permissions are permanently denied.";
+      });
+      return;
+    }
+
+    // When permissions are granted, get the current position.
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      locationMessage =
+          "Lat: ${position.latitude.toStringAsFixed(4)}, Lng: ${position.longitude.toStringAsFixed(4)}";
+    });
   }
 
   // Fetch categories from the API
@@ -105,10 +149,7 @@ class _QuizTakeScreenState extends State<QuizTakeScreen> {
             value: selectedCategory.isEmpty ? null : selectedCategory,
             hint: Text("All"),
             items: [
-              DropdownMenuItem(
-                child: Text("All"),
-                value: "",
-              ),
+              DropdownMenuItem(child: Text("All"), value: ""),
               ...categories.map<DropdownMenuItem<String>>((cat) {
                 return DropdownMenuItem(
                   child: Text(cat['name']),
@@ -126,6 +167,11 @@ class _QuizTakeScreenState extends State<QuizTakeScreen> {
           ElevatedButton(
             onPressed: startQuiz,
             child: Text("Start Quiz"),
+          ),
+          SizedBox(height: 20),
+          Text(
+            "Your Location: $locationMessage",
+            style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
           )
         ],
       ),

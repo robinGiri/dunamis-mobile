@@ -18,10 +18,10 @@ class CreateCourse extends CourseEvent {
   List<Object> get props => [courseName];
 }
 
-class DeleteCourse extends CourseEvent {
+class ViewCourse extends CourseEvent {
   final String id;
 
-  const DeleteCourse({required this.id});
+  const ViewCourse({required this.id});
 
   @override
   List<Object> get props => [id];
