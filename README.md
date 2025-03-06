@@ -1,16 +1,8 @@
 # dunamis
 
-A new Flutter project.
+The primary aim of Dunamis is to provide an intuitive and engaging mobile learning experience. The app is designed to empower users by offering a diverse range of courses that can be accessed anywhere and anytime.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img width="356" alt="Screenshot 2025-03-06 at 7 19 39 PM" src="https://github.com/user-attachments/assets/3aaff8d7-5572-4644-9840-f012a0c77146" />
+<img width="356" alt="Screenshot 2025-03-06 at 7 19 53 PM" src="https://github.com/user-attachments/assets/6e928211-4713-4628-8e22-9d7153e66000" />
+<img width="356" alt="Screenshot 2025-03-06 at 7 20 04 PM" src="https://github.com/user-attachments/assets/19ab9988-961d-41fd-ae0c-b07d5ab909b8" />
+<img width="356" alt="Screenshot 2025-03-06 at 7 20 14 PM" src="https://github.com/user-attachments/assets/109745f9-6c58-4066-88c5-ad201f5e512e" />
