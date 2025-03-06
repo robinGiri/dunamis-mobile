@@ -1,5 +1,6 @@
 import 'package:dunamis/features/dashboard/presentation/view/course_view.dart';
 import 'package:dunamis/features/dashboard/presentation/view_model/course_bloc.dart';
+import 'package:dunamis/features/quitz/quiz_take_screen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,9 +32,8 @@ class HomeState extends Equatable {
           create: (context) => getIt<CourseBloc>(),
           child: CourseView(),
         ),
-        BlocProvider(
-          create: (context) => getIt<BatchBloc>(),
-          child: BatchView(),
+        Center(
+          child: QuizTakeScreen(),
         ),
         const Center(
           child: Text('Account'),

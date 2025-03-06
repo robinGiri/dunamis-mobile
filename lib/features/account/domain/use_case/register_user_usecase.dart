@@ -1,0 +1,51 @@
+import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
+import 'package:dunamis/app/usecase/usecase.dart';
+import 'package:dunamis/core/error/failure.dart';
+import 'package:dunamis/features/auth/domain/repository/auth_repository.dart';
+import 'package:dunamis/features/course/domain/entity/course_entity.dart';
+
+class RegisterUserParams extends Equatable {
+  final String fname;
+  final String lname;
+  final String phone;
+  final List<CourseEntity> courses;
+  final String username;
+  final String password;
+  final String? image;
+
+  const RegisterUserParams({
+    required this.fname,
+    required this.lname,
+    required this.phone,
+    required this.courses,
+    required this.username,
+    required this.password,
+    this.image,
+  });
+
+  //intial constructor
+  const RegisterUserParams.initial({
+    required this.fname,
+    required this.lname,
+    required this.phone,
+    required this.courses,
+    required this.username,
+    required this.password,
+    this.image,
+  });
+
+  @override
+  List<Object?> get props => [fname, lname, phone, courses, username, password];
+}
+
+class RegisterUseCase implements UsecaseWithParams<void, RegisterUserParams> {
+  final IAuthRepository repository;
+
+  RegisterUseCase(this.repository);
+
+  @override
+  Future<Either<Failure, void>> call(RegisterUserParams params) {
+    return repository.getCurrentUser();
+  }
+}
